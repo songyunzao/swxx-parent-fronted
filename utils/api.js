@@ -59,6 +59,41 @@ function fetchOssJson(ossUrl) {
   });
 }
 
+// —— 本地缓存策略 ——
+// 内容（目录/单集手册）是 OSS 上的静态 JSON，低频变更。
+// 读取策略：有缓存立即返回（秒开），同时后台静默拉最新版比对，
+// 有更新就写回缓存，下次打开生效。无缓存则正常等待下载。
+const CATALOG_CACHE_KEY = 'catalog_cache';
+const EPISODE_CACHE_PREFIX = 'episode_cache_';
+
+function safeSetStorage(key, value) {
+  try {
+    wx.setStorageSync(key, value);
+  } catch (e) {
+    // 存储满了：清掉单集缓存再试一次，还不行就放弃（不缓存也能用）
+    if (key !== CATALOG_CACHE_KEY) return;
+    try {
+      const info = wx.getStorageInfoSync();
+      (info.keys || []).forEach((k) => {
+        if (k.indexOf(EPISODE_CACHE_PREFIX) === 0) wx.removeStorageSync(k);
+      });
+      wx.setStorageSync(key, value);
+    } catch (e2) { /* 放弃缓存 */ }
+  }
+}
+
+// 后台静默刷新缓存（不阻塞页面）
+function backgroundRefresh(url, key, cachedVersion) {
+  fetchOssJson(url)
+    .then((fresh) => {
+      if (!fresh) return;
+      // catalog 有 generatedAt 版本号可比对；episode 没有则直接重写
+      if (cachedVersion && fresh.generatedAt === cachedVersion) return;
+      safeSetStorage(key, { version: fresh.generatedAt || '', data: fresh });
+    })
+    .catch(() => { /* 刷新失败用旧缓存，无感知 */ });
+}
+
 module.exports = {
   // —— 认证 ——
   async sendCode(phone) {
@@ -93,12 +128,28 @@ module.exports = {
   async fetchCatalog() {
     const data = await request({ url: '/content/catalog' });
     if (!data || !data.url) throw new Error('目录地址获取失败');
-    return fetchOssJson(data.url);
+    const cached = wx.getStorageSync(CATALOG_CACHE_KEY);
+    if (cached && cached.data) {
+      // 秒开：先返回缓存，后台比对 generatedAt 有更新则写回（下次生效）
+      backgroundRefresh(data.url, CATALOG_CACHE_KEY, cached.version);
+      return cached.data;
+    }
+    const fresh = await fetchOssJson(data.url);
+    safeSetStorage(CATALOG_CACHE_KEY, { version: fresh.generatedAt || '', data: fresh });
+    return fresh;
   },
 
   async fetchEpisodeGuide(episodeId) {
     const data = await request({ url: `/content/episode/${episodeId}` });
     if (!data || !data.url) throw new Error('内容地址获取失败');
-    return fetchOssJson(data.url);
+    const key = EPISODE_CACHE_PREFIX + episodeId;
+    const cached = wx.getStorageSync(key);
+    if (cached && cached.data) {
+      backgroundRefresh(data.url, key, '');
+      return cached.data;
+    }
+    const fresh = await fetchOssJson(data.url);
+    safeSetStorage(key, { version: fresh.generatedAt || '', data: fresh });
+    return fresh;
   },
 };
