@@ -1,0 +1,245 @@
+/* pages/episodes/episodes.wxss
+   1:1 翻译 H5 styles.css 中集数目录屏相关样式。
+   引用全局变量与部分共享类（brand-header/search-box 等已在各页 wxss 中独立声明，
+   小程序页面 wxss 不共享，故每个页面自含其样式副本）。
+*/
+
+/* —— 品牌头 compact（H5 is-compact: 54px）—— */
+.brand-header {
+  flex: 0 0 108rpx;
+  min-height: 108rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 0 36rpx;
+  border-bottom: 1rpx solid var(--line);
+  background: rgba(255, 255, 255, 0.98);
+  z-index: 5;
+}
+.brand-header.is-compact {
+  flex-basis: 108rpx;
+  min-height: 108rpx;
+}
+.brand-lockup { display: flex; align-items: center; gap: 16rpx; min-width: 0; }
+.brand-mark-crop { width: 92rpx; height: 50rpx; overflow: hidden; flex: 0 0 auto; }
+.brand-mark-crop image { display: block; width: auto; height: 50rpx; }
+.brand-copy { display: flex; align-items: center; min-width: 0; white-space: nowrap; color: var(--ink); }
+.brand-name { font-size: 30rpx; font-weight: 750; }
+.brand-divider { width: 2rpx; height: 32rpx; background: #b7bdc6; margin: 0 14rpx; }
+.brand-station { font-size: 26rpx; font-weight: 650; }
+.header-directory { display: flex; align-items: center; gap: 10rpx; font-size: 24rpx; color: #3f4652; white-space: nowrap; }
+.header-directory-icon { font-size: 28rpx; }
+
+/* —— 返回栏 back-bar（H5 48px）—— */
+.back-bar {
+  flex: 0 0 96rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  min-height: 96rpx;
+  padding: 0 36rpx;
+  border-bottom: 1rpx solid var(--line);
+  background: #fff;
+}
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: var(--blue);
+  font-size: 26rpx;
+  font-weight: 630;
+  white-space: nowrap;
+}
+.back-arrow {
+  font-size: 34rpx;
+}
+
+/* —— 课程介绍 episode-intro —— */
+.episode-intro {
+  display: flex;
+  align-items: center;
+  gap: 26rpx;
+  padding: 44rpx 40rpx 38rpx;
+}
+.subject-symbol {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 12rpx;
+  font-size: 44rpx;
+  flex: 0 0 auto;
+}
+.subject-symbol.tone-blue { color: var(--blue); background: var(--blue-soft); }
+.subject-symbol.tone-green { color: var(--green); background: var(--green-soft); }
+.subject-symbol.tone-coral { color: var(--coral); background: var(--coral-soft); }
+.subject-symbol.tone-yellow { color: #9f7600; background: var(--yellow-soft); }
+.episode-intro-copy { display: flex; flex-direction: column; }
+.episode-intro-subject { color: var(--blue); font-size: 22rpx; font-weight: 670; }
+.episode-intro-title { margin-top: 4rpx; font-size: 44rpx; line-height: 1.35; font-weight: 650; }
+.episode-intro-count { color: var(--muted); font-size: 22rpx; }
+
+/* —— 搜索框 —— */
+.search-box {
+  height: 88rpx;
+  margin: 0 40rpx 42rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 0 24rpx;
+  color: #6f7785;
+  border: 1rpx solid #d9dee5;
+  border-radius: 12rpx;
+  background: #f8f9fa;
+}
+.search-icon { font-size: 30rpx; }
+.search-input { min-width: 0; flex: 1; color: var(--ink); font-size: 28rpx; }
+.search-placeholder { color: #9aa0aa; }
+.search-clear { width: 52rpx; height: 52rpx; display: flex; align-items: center; justify-content: center; color: #7c8490; font-size: 24rpx; }
+
+/* —— 单元 tab unit-tabs（H5 38px）—— */
+.unit-tabs {
+  white-space: nowrap;
+  height: 76rpx;
+  margin: 0 40rpx 42rpx;
+  padding: 6rpx;
+  background: #f1f3f5;
+  border-radius: 12rpx;
+}
+.unit-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 128rpx;
+  height: 64rpx;
+  padding: 0 24rpx;
+  margin-right: 6rpx;
+  border-radius: 8rpx;
+  color: #777e89;
+  background: transparent;
+  font-size: 24rpx;
+}
+.unit-tab.active {
+  color: var(--ink);
+  background: #fff;
+  box-shadow: 0 2rpx 6rpx rgba(20, 27, 37, 0.1);
+  font-weight: 650;
+}
+
+/* —— 集数列表 episode-list —— */
+.episode-list { padding: 0 40rpx 52rpx; }
+.section-heading-line {
+  min-height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+.section-title { font-size: 30rpx; font-weight: 710; }
+.section-count { color: #969ca6; font-size: 22rpx; }
+
+.episode-row {
+  width: 100%;
+  min-height: 140rpx;
+  display: grid;
+  grid-template-columns: 84rpx minmax(0, 1fr) auto 36rpx;
+  align-items: center;
+  gap: 20rpx;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--line);
+  background: #fff;
+}
+.episode-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 76rpx;
+  height: 76rpx;
+  border: 1rpx solid #cfd5dd;
+  border-radius: 50%;
+  color: #626a76;
+  font-size: 26rpx;
+  font-weight: 690;
+}
+.episode-copy { min-width: 0; display: flex; flex-direction: column; }
+.episode-unit-label { color: #969da7; font-size: 20rpx; }
+.episode-title-text {
+  margin-top: 4rpx;
+  font-size: 28rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 650;
+}
+.episode-status {
+  padding: 6rpx 12rpx;
+  border: 1rpx solid #e1e4e8;
+  border-radius: 8rpx;
+  color: #9299a4;
+  font-size: 18rpx;
+  white-space: nowrap;
+}
+.episode-status.is-ready {
+  border-color: rgba(29, 168, 107, 0.28);
+  color: #16875a;
+  background: var(--green-soft);
+}
+.episode-caret { color: #a4aab3; font-size: 32rpx; }
+
+/* —— 待整理占位 pending-course —— */
+.pending-course {
+  margin: 60rpx 40rpx;
+  padding: 70rpx 36rpx;
+  border-top: 1rpx solid var(--line);
+  border-bottom: 1rpx solid var(--line);
+  text-align: center;
+  color: #858c97;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.pending-icon { font-size: 68rpx; }
+.pending-title { margin: 24rpx 0 14rpx; color: var(--ink); font-size: 34rpx; }
+.pending-desc { font-size: 24rpx; }
+.pending-button {
+  margin-top: 38rpx;
+  padding: 16rpx 26rpx;
+  border: 1rpx solid var(--blue);
+  border-radius: 10rpx;
+  color: var(--blue);
+  background: #fff;
+  font-size: 24rpx;
+}
+
+/* —— 空状态 —— */
+.empty-state {
+  min-height: 340rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  color: #9299a5;
+}
+.empty-icon { font-size: 56rpx; }
+.empty-title { margin-top: 10rpx; color: #555c68; font-size: 28rpx; }
+.empty-desc { font-size: 24rpx; }
+
+/* —— toast —— */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 44rpx;
+  transform: translateX(-50%);
+  z-index: 20;
+  max-width: calc(100% - 80rpx);
+  padding: 20rpx 28rpx;
+  border-radius: 12rpx;
+  color: #fff;
+  background: rgba(19, 23, 34, 0.92);
+  font-size: 24rpx;
+  text-align: center;
+  box-shadow: 0 16rpx 50rpx rgba(20, 27, 37, 0.18);
+}

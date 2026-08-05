@@ -1,0 +1,68 @@
+/* pages/login/login.wxss */
+.login-screen { background: #f5f6f8; min-height: 100vh; }
+.login-scroll { min-height: 100vh; }
+
+.login-brand {
+  display: flex; justify-content: center;
+  padding: 60rpx 0 20rpx;
+}
+.login-logo { width: 200rpx; height: 110rpx; }
+
+.login-head { text-align: center; padding: 20rpx 40rpx 50rpx; }
+.login-title {
+  display: block; font-size: 36rpx; font-weight: 700; color: #1a1f2e;
+}
+.login-sub {
+  display: block; margin-top: 12rpx; font-size: 24rpx; color: #6d7482;
+}
+
+.login-form {
+  margin: 0 50rpx; padding: 40rpx 36rpx;
+  background: #fff; border-radius: 16rpx;
+  box-shadow: 0 4rpx 20rpx rgba(20,27,37,0.05);
+}
+.form-row { margin-bottom: 30rpx; }
+.form-label {
+  display: block; margin-bottom: 14rpx; font-size: 26rpx; color: #4e5663; font-weight: 500;
+}
+.phone-input-wrap {
+  border: 1rpx solid #d9dee5; border-radius: 10rpx;
+  height: 96rpx; padding: 0 24rpx;
+  display: flex; align-items: center;
+}
+.phone-input {
+  width: 100%; height: 96rpx; line-height: 96rpx;
+  font-size: 34rpx; color: #1a1f2e;
+}
+.code-row { display: flex; gap: 16rpx; align-items: center; }
+.code-input {
+  flex: 1; height: 96rpx; line-height: 96rpx;
+  border: 1rpx solid #d9dee5; border-radius: 10rpx;
+  padding: 0 24rpx; font-size: 34rpx; color: #1a1f2e;
+}
+.send-btn {
+  flex: 0 0 auto; height: 96rpx; line-height: 96rpx;
+  padding: 0 28rpx; border-radius: 10rpx;
+  background: #f0f4ff; color: #286be6; font-size: 26rpx; white-space: nowrap;
+}
+.send-btn.is-disabled { color: #969ca6; background: #f0f2f5; }
+
+.login-btn {
+  margin-top: 16rpx; width: 100%; height: 92rpx; line-height: 92rpx;
+  background: #286be6; color: #fff; font-size: 32rpx;
+  border-radius: 10rpx; border: 0;
+}
+.login-btn::after { border: 0; }
+
+.err-text {
+  display: block; margin-top: 20rpx; color: #ed5d59; font-size: 24rpx; text-align: center;
+}
+
+.login-foot {
+  margin: 40rpx 60rpx; text-align: center;
+}
+.login-foot text {
+  font-size: 22rpx; color: #969ca6; line-height: 1.6;
+}
+
+.ph { color: #aab0ba; }

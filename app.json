@@ -1,0 +1,20 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/courses/courses",
+    "pages/bindChild/bindChild",
+    "pages/episodes/episodes",
+    "pages/manual/manual"
+  ],
+  "window": {
+    "navigationBarTitleText": "三五小星知识成果检测站",
+    "navigationStyle": "custom",
+    "backgroundColor": "#FFFFFF",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

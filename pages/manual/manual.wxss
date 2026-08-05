@@ -1,0 +1,453 @@
+/* pages/manual/manual.wxss
+   1:1 翻译 H5 styles.css 中本集手册屏所有样式：
+   brand-header(is-compact) / back-bar / manual-load-state /
+   episode-hero / manual-tabs / manual-panel / summary / mindmap / question
+*/
+
+/* —— 品牌头 compact —— */
+.brand-header {
+  flex: 0 0 108rpx;
+  min-height: 108rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  padding: 0 36rpx;
+  border-bottom: 1rpx solid var(--line);
+  background: rgba(255, 255, 255, 0.98);
+  z-index: 5;
+}
+.brand-lockup { display: flex; align-items: center; gap: 16rpx; min-width: 0; }
+.brand-mark-crop { width: 92rpx; height: 50rpx; overflow: hidden; flex: 0 0 auto; }
+.brand-mark-crop image { display: block; width: auto; height: 50rpx; }
+.brand-copy { display: flex; align-items: center; min-width: 0; white-space: nowrap; color: var(--ink); }
+.brand-name { font-size: 30rpx; font-weight: 750; }
+.brand-divider { width: 2rpx; height: 32rpx; background: #b7bdc6; margin: 0 14rpx; }
+.brand-station { font-size: 26rpx; font-weight: 650; }
+.header-directory { display: flex; align-items: center; gap: 10rpx; font-size: 24rpx; color: #3f4652; white-space: nowrap; }
+.header-directory-icon { font-size: 28rpx; }
+
+/* —— 返回栏（带 trail）—— */
+.back-bar {
+  flex: 0 0 96rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  min-height: 96rpx;
+  padding: 0 36rpx;
+  border-bottom: 1rpx solid var(--line);
+  background: #fff;
+}
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: var(--blue);
+  font-size: 26rpx;
+  font-weight: 630;
+  white-space: nowrap;
+}
+.back-arrow { font-size: 34rpx; }
+.back-trail {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #8a909c;
+  font-size: 24rpx;
+  padding-left: 24rpx;
+  border-left: 1rpx solid #cfd3d9;
+}
+
+/* —— 加载态 / 错误态 manual-load-state（H5 min-height 240）—— */
+.manual-load-state {
+  min-height: 480rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24rpx;
+  padding: 48rpx;
+  color: var(--muted);
+  text-align: center;
+}
+.manual-load-icon { font-size: 60rpx; }
+.manual-load-title { color: var(--ink); font-size: 30rpx; }
+.manual-load-button {
+  padding: 16rpx 24rpx;
+  border: 1rpx solid var(--blue);
+  border-radius: 10rpx;
+  color: var(--blue);
+  background: #fff;
+  font-size: 24rpx;
+}
+
+/* —— EpisodeHero（H5 grid 1fr 154px, gap 10, padding 18 18 12）—— */
+.episode-hero {
+  min-height: 328rpx;
+  display: grid;
+  grid-template-columns: 1fr 308rpx;
+  align-items: center;
+  gap: 20rpx;
+  padding: 36rpx 36rpx 24rpx;
+}
+.episode-hero-copy { display: flex; flex-direction: column; }
+.hero-series {
+  margin-bottom: 28rpx;
+  color: #737b87;
+  font-size: 22rpx;
+}
+.hero-title-wrap { display: flex; flex-direction: column; }
+.hero-label {
+  margin-bottom: 4rpx;
+  font-size: 30rpx;
+  font-weight: 580;
+}
+.hero-title {
+  font-size: 50rpx;
+  line-height: 1.28;
+  font-weight: 650;
+}
+.episode-hero.has-long-title .hero-title {
+  font-size: 40rpx;
+  line-height: 1.35;
+}
+.episode-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10rpx;
+  margin-top: 28rpx;
+}
+.episode-tag {
+  padding: 8rpx 14rpx;
+  border: 1rpx solid #dce4f0;
+  border-radius: 8rpx;
+  color: var(--blue);
+  background: #f8fbff;
+  font-size: 18rpx;
+}
+
+/* hero 配图 figure / 占位符 symbol */
+.hero-figure { width: 308rpx; }
+.hero-image {
+  display: block;
+  width: 308rpx;
+  height: 232rpx;
+  border-radius: 12rpx;
+  background: #f1f4f7;
+}
+.hero-image.is-contain {
+  border: 1rpx solid #e5e9ee;
+  background: #fff;
+}
+.hero-caption {
+  margin-top: 10rpx;
+  color: #9299a3;
+  font-size: 18rpx;
+  text-align: right;
+  display: block;
+}
+.episode-hero-symbol {
+  width: 252rpx;
+  height: 232rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  border: 1rpx solid #e1e6ed;
+  border-radius: 12rpx;
+}
+.hero-symbol-glyph { font-size: 88rpx; }
+.hero-symbol-label { font-size: 20rpx; font-weight: 700; }
+.episode-hero-symbol.tone-blue { color: var(--blue); background: var(--blue-soft); }
+.episode-hero-symbol.tone-green { color: var(--green); background: var(--green-soft); }
+.episode-hero-symbol.tone-yellow { color: #967400; background: var(--yellow-soft); }
+.episode-hero-symbol.tone-coral { color: var(--coral); background: var(--coral-soft); }
+
+/* —— manual-tabs（H5 height 49, sticky）—— */
+.manual-tabs {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  height: 98rpx;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1rpx solid var(--line);
+  border-bottom: 1rpx solid var(--line);
+  background: rgba(255, 255, 255, 0.98);
+}
+.manual-tab {
+  position: relative;
+  color: #69717e;
+  font-size: 26rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.manual-tab.active {
+  color: var(--blue);
+  font-weight: 700;
+}
+.manual-tab.active::after {
+  content: "";
+  position: absolute;
+  left: 24%;
+  right: 24%;
+  bottom: -1rpx;
+  height: 4rpx;
+  background: var(--blue);
+}
+
+/* —— manual-panel（H5 padding 22 18 40）—— */
+.manual-panel {
+  padding: 44rpx 36rpx 80rpx;
+}
+
+/* —— 通用 section title —— */
+.manual-section + .manual-section {
+  margin-top: 56rpx;
+}
+.manual-section-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 20rpx;
+}
+.manual-section-copy { display: flex; flex-direction: column; }
+.manual-section-label {
+  color: var(--blue);
+  font-size: 20rpx;
+  font-weight: 720;
+}
+.manual-section-heading {
+  margin-top: 4rpx;
+  font-size: 34rpx;
+  line-height: 1.4;
+  font-weight: 650;
+}
+.title-icon {
+  flex: 0 0 68rpx;
+  width: 68rpx;
+  height: 68rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+.title-icon.blue { color: var(--blue); background: var(--blue-soft); }
+.title-icon.green { color: var(--green); background: var(--green-soft); }
+.title-icon.coral { color: var(--coral); background: var(--coral-soft); }
+
+/* —— SummaryTab：key-point-list（H5 ol）—— */
+.key-point-list {
+  margin-top: 36rpx;
+  border-top: 1rpx solid var(--line);
+}
+.key-point-item {
+  display: grid;
+  grid-template-columns: 52rpx 1fr;
+  gap: 18rpx;
+  padding: 26rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+.key-point-index {
+  color: var(--blue);
+  font-size: 20rpx;
+  font-weight: 700;
+}
+.key-point-text {
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+/* —— SummaryTab：misconception —— */
+.misconception-list {
+  margin-top: 34rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  color: #4e5663;
+}
+.misconception-item {
+  font-size: 26rpx;
+  line-height: 1.7;
+}
+
+/* —— MindMapTab：mindmap-flow —— */
+.mindmap-flow { margin-top: 42rpx; }
+.mindmap-step-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mindmap-step {
+  align-self: stretch;
+  margin-bottom: 22rpx;
+  padding: 26rpx 28rpx;
+  border-left: 6rpx solid var(--blue);
+  background: #f8fafc;
+  display: flex;
+  flex-direction: column;
+}
+.mindmap-step.tone-yellow { border-left-color: var(--yellow); }
+.mindmap-step.tone-green { border-left-color: var(--green); }
+.mindmap-step.tone-coral { border-left-color: var(--coral); }
+.mindmap-step-label {
+  color: var(--blue);
+  font-size: 18rpx;
+  font-weight: 720;
+}
+.mindmap-step.tone-yellow .mindmap-step-label { color: #977000; }
+.mindmap-step.tone-green .mindmap-step-label { color: #16875a; }
+.mindmap-step.tone-coral .mindmap-step-label { color: #c64845; }
+.mindmap-step-title {
+  margin: 6rpx 0;
+  font-size: 28rpx;
+  font-weight: 650;
+}
+.mindmap-step-detail {
+  color: #6b7380;
+  font-size: 22rpx;
+  line-height: 1.55;
+}
+.flow-arrow {
+  color: #a9afb8;
+  font-size: 32rpx;
+  margin-bottom: 8rpx;
+}
+
+/* —— MindMapTab：formula-note —— */
+.formula-note {
+  margin-top: 28rpx;
+  padding: 32rpx;
+  border-top: 1rpx solid #cfd8e5;
+  border-bottom: 1rpx solid #cfd8e5;
+  background: #f7faff;
+  display: flex;
+  flex-direction: column;
+}
+.formula-label {
+  color: var(--blue);
+  font-size: 20rpx;
+  font-weight: 700;
+}
+.formula-title {
+  margin-top: 10rpx;
+  font-size: 46rpx;
+  font-weight: 650;
+}
+.formula-note.is-concept .formula-title {
+  font-size: 32rpx;
+  line-height: 1.45;
+}
+.formula-detail {
+  margin-top: 14rpx;
+  color: #657080;
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+
+/* —— QuestionTab —— */
+.question-panel { padding-top: 40rpx; }
+.question-topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  color: var(--blue);
+  font-size: 22rpx;
+  font-weight: 680;
+}
+.question-label {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+}
+.question-label-icon { font-size: 30rpx; }
+.question-switcher {
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 60rpx 84rpx 60rpx;
+  align-items: center;
+  gap: 6rpx;
+}
+.question-switch-btn {
+  width: 60rpx;
+  height: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #d9dee5;
+  border-radius: 10rpx;
+  color: #5e6672;
+  background: #fff;
+  font-size: 30rpx;
+}
+.question-switch-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #8a929d;
+  font-size: 24rpx;
+  font-weight: 520;
+}
+.question-title {
+  display: block;
+  margin: 30rpx 0 18rpx;
+  font-size: 40rpx;
+  line-height: 1.55;
+  font-weight: 650;
+}
+.answer-note {
+  display: block;
+  margin: 0 0 26rpx;
+  color: #7a828e;
+  font-size: 22rpx;
+  line-height: 1.6;
+}
+.answer-list {
+  border-top: 1rpx solid var(--line);
+}
+.answer-row {
+  width: 100%;
+  min-height: 134rpx;
+  display: grid;
+  grid-template-columns: 60rpx minmax(0, 1fr) 36rpx;
+  align-items: center;
+  gap: 20rpx;
+  padding: 22rpx 0;
+  border-bottom: 1rpx solid var(--line);
+  background: #fff;
+}
+.answer-text {
+  color: #353c48;
+  font-size: 24rpx;
+  line-height: 1.6;
+}
+.answer-check {
+  color: var(--blue);
+  font-size: 30rpx;
+  font-weight: 700;
+}
+.answer-letter {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid #d4d9e0;
+  border-radius: 50%;
+  color: #525a66;
+  background: #f7f8f9;
+  font-size: 26rpx;
+  font-weight: 690;
+}
+.answer-row.is-selected {
+  background: #f7faff;
+}
+.answer-row.is-selected .answer-letter {
+  border-color: var(--blue);
+  color: #fff;
+  background: var(--blue);
+}

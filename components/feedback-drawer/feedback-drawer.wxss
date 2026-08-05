@@ -1,0 +1,139 @@
+/* components/feedback-drawer/feedback-drawer.wxss
+   1:1 翻译 H5 styles.css 中 drawer-scrim / feedback-drawer / feedback-content 相关样式。
+*/
+
+.drawer-root {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+}
+
+/* 遮罩 drawer-scrim（H5 background rgba(24,29,38,.18)）*/
+.drawer-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(24, 29, 38, 0.18);
+  animation: fd-fade-in 160ms ease-out;
+}
+
+@keyframes fd-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* 抽屉 feedback-drawer（H5 bottom:0, max-height:58%, radius 8 8 0 0）*/
+.feedback-drawer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 21;
+  max-height: 58%;
+  padding: 16rpx 32rpx calc(32rpx + env(safe-area-inset-bottom));
+  overflow-y: auto;
+  border-radius: 16rpx 16rpx 0 0;
+  background: #fff;
+  box-shadow: 0 -24rpx 70rpx rgba(19, 23, 34, 0.14);
+  animation: fd-drawer-in 220ms ease-out;
+}
+
+@keyframes fd-drawer-in {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.drawer-handle {
+  width: 76rpx;
+  height: 8rpx;
+  margin: 0 auto 14rpx;
+  border-radius: 4rpx;
+  background: #d4d8de;
+}
+
+/* 抽屉头 drawer-heading */
+.drawer-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24rpx;
+  padding-bottom: 20rpx;
+  border-bottom: 1rpx solid var(--line);
+}
+.drawer-heading-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+.drawer-heading-line {
+  color: #777f8b;
+  font-size: 22rpx;
+}
+.drawer-heading-tone {
+  color: var(--blue);
+  font-size: 24rpx;
+  font-weight: 650;
+}
+
+/* kind 配色（与 H5 feedback-* 完全一致）*/
+.feedback-solid .drawer-heading-tone { color: var(--green); }
+.feedback-partial .drawer-heading-tone { color: #a37800; }
+.feedback-mixed .drawer-heading-tone { color: var(--coral); }
+.feedback-recall .drawer-heading-tone { color: #69717d; }
+.feedback-spark .drawer-heading-tone { color: var(--blue); }
+
+.drawer-close {
+  width: 62rpx;
+  height: 62rpx;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #626a76;
+  background: #f2f4f6;
+  border-radius: 50%;
+  font-size: 24rpx;
+}
+
+/* 内容 feedback-content */
+.feedback-item {
+  display: grid;
+  grid-template-columns: 64rpx minmax(0, 1fr);
+  gap: 20rpx;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--line);
+}
+.feedback-item:last-child {
+  border-bottom: 0;
+}
+.feedback-icon {
+  width: 62rpx;
+  height: 62rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+}
+.feedback-icon-1 { color: var(--blue); background: var(--blue-soft); }
+.feedback-icon-2 { color: var(--green); background: var(--green-soft); }
+.feedback-icon-3 { color: var(--coral); background: var(--coral-soft); }
+
+.feedback-item-label {
+  display: block;
+  color: #7a828d;
+  font-size: 18rpx;
+  font-weight: 650;
+}
+.feedback-item-title {
+  display: block;
+  margin-top: 6rpx;
+  font-size: 28rpx;
+  line-height: 1.45;
+}
+.feedback-item-text {
+  display: block;
+  margin-top: 6rpx;
+  color: #454d59;
+  font-size: 22rpx;
+  line-height: 1.68;
+}

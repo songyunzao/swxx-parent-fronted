@@ -1,0 +1,72 @@
+<!-- pages/bindChild/bindChild.wxml
+     学习进度页：登录后自动用登录号（家长号 = 主App user.tel）查询学习进度。
+     家长登录后直接看到自己孩子的各科进度，无需再输入手机号。
+-->
+<view class="screen bind-screen">
+  <view class="status-bar-holder" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- 顶栏 -->
+  <view class="bind-topbar">
+    <view class="topbar-back" bindtap="onBack">
+      <text class="topbar-back-arrow">←</text>
+      <text>课程</text>
+    </view>
+    <text class="topbar-title">学习进度</text>
+    <text class="topbar-logout" bindtap="onLogout">退出</text>
+  </view>
+
+  <scroll-view class="bind-scroll" scroll-y>
+    <!-- 加载中 -->
+    <view wx:if="{{loading}}" class="loading-state">
+      <text>正在查询学习进度...</text>
+    </view>
+
+    <!-- 错误提示 -->
+    <view wx:elif="{{errMsg}}" class="err-card">
+      <text class="err-card-title">查询失败</text>
+      <text class="err-card-msg">{{errMsg}}</text>
+      <view class="err-card-btn" bindtap="onRefresh">重新查询</view>
+    </view>
+
+    <!-- 进度展示 -->
+    <view wx:elif="{{progress}}" class="progress-wrap">
+      <!-- 孩子信息（实际是家长账号信息，因为主App user就是家长）-->
+      <view class="child-card">
+        <view class="child-avatar">{{childInitial}}</view>
+        <view class="child-info">
+          <text class="child-name">{{child.nick_name || '我的孩子'}}</text>
+          <text class="child-meta">{{child.is_member ? '有效会员' : '非会员'}} · 星力值 {{child.star_total || 0}}</text>
+        </view>
+      </view>
+
+      <!-- 各科进度 -->
+      <view class="course-progress-list">
+        <view
+          wx:for="{{courseList}}"
+          wx:key="key"
+          class="course-progress tone-{{item.tone}}"
+          bindtap="onSelectCourse"
+          data-key="{{item.key}}"
+        >
+          <view class="cp-head">
+            <text class="cp-name">{{item.name}}</text>
+            <text class="cp-go">去考察 ›</text>
+          </view>
+          <view class="cp-bar-wrap">
+            <view class="cp-bar" style="width: {{item.completion}}%"></view>
+          </view>
+          <view class="cp-stat">
+            <text>学过 {{item.learnedCourses}} / {{item.totalEpisodes}} 集</text>
+            <text wx:if="{{item.furthestEpisode}}">最远到第 {{item.furthestEpisode}} 集</text>
+            <text wx:else>暂未开始</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="requery-btn" bindtap="onRefresh">刷新进度</view>
+
+      <!-- 数据说明 -->
+      <view class="progress-note">注：学习进度为大致进度，可能出现些许差距，仅供家长参考</view>
+    </view>
+  </scroll-view>
+</view>

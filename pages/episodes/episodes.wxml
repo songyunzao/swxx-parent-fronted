@@ -1,0 +1,123 @@
+<!-- pages/episodes/episodes.wxml
+     对应 H5 的 EpisodeDirectory 组件（App.jsx:146-236）
+     结构：品牌头(compact) -> 返回栏 -> 课程介绍 -> 搜索框 -> 单元tab -> 集数列表
+-->
+<view class="screen screen-episodes">
+
+  <!-- 状态栏占位 -->
+  <view class="status-bar-holder" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- 品牌头 BrandHeader compact -->
+  <view class="brand-header is-compact">
+    <view class="brand-lockup" bindtap="onHome">
+      <view class="brand-mark-crop">
+        <image src="/images/swxx-brand-mark.png" mode="heightFix" />
+      </view>
+      <view class="brand-copy">
+        <text class="brand-name">三五小星</text>
+        <text class="brand-divider"></text>
+        <text class="brand-station">知识成果检测站</text>
+      </view>
+    </view>
+    <view class="header-directory" bindtap="onHome">
+      <text class="header-directory-icon">☰</text>
+      <text>课程目录</text>
+    </view>
+  </view>
+
+  <!-- 返回栏 BackBar -->
+  <view class="back-bar">
+    <view class="back-button" bindtap="onBack">
+      <text class="back-arrow">←</text>
+      <text>返回课程目录</text>
+    </view>
+  </view>
+
+  <scroll-view class="screen-scroll episode-scroll" scroll-y>
+
+    <!-- 课程介绍 episode-intro -->
+    <view class="episode-intro">
+      <view class="subject-symbol tone-{{course.accent}}">
+        <text class="subject-glyph">{{subjectGlyph}}</text>
+      </view>
+      <view class="episode-intro-copy">
+        <text class="episode-intro-subject">{{course.subject}}</text>
+        <text class="episode-intro-title">{{course.title}}</text>
+        <text class="episode-intro-count">{{course.count}} 集课程</text>
+      </view>
+    </view>
+
+    <!-- 搜索框 -->
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input
+        class="search-input"
+        value="{{query}}"
+        bindinput="onQueryChange"
+        placeholder="搜索集数或标题"
+        placeholder-class="search-placeholder"
+      />
+      <view wx:if="{{query}}" class="search-clear" bindtap="onClearQuery">
+        <text>✕</text>
+      </view>
+    </view>
+
+    <!-- 有集数：单元 tab + 列表 -->
+    <block wx:if="{{episodes.length > 0}}">
+      <!-- 单元 tab unit-tabs（横向滚动）-->
+      <scroll-view class="unit-tabs" scroll-x>
+        <view
+          wx:for="{{unitTabs}}"
+          wx:key="*this"
+          class="unit-tab {{unit === item ? 'active' : ''}}"
+          bindtap="onUnitTap"
+          data-unit="{{item}}"
+        >{{item}}</view>
+      </scroll-view>
+
+      <!-- 集数列表 episode-list -->
+      <view class="episode-list">
+        <view class="section-heading-line">
+          <text class="section-title">{{unit === '全部' ? course.listTitle : unit}}</text>
+          <text class="section-count">{{filtered.length}} 集</text>
+        </view>
+
+        <view
+          wx:for="{{filtered}}"
+          wx:key="id"
+          class="episode-row"
+          bindtap="onOpenEpisode"
+          data-episode="{{item}}"
+        >
+          <view class="episode-number">{{item.number}}</view>
+          <view class="episode-copy">
+            <text class="episode-unit-label">{{item.unit}}</text>
+            <text class="episode-title-text">{{item.title}}</text>
+          </view>
+          <text class="episode-status {{item.ready ? 'is-ready' : ''}}">
+            {{item.ready ? '已整理' : '整理中'}}
+          </text>
+          <text class="episode-caret">›</text>
+        </view>
+
+        <view wx:if="{{filtered.length === 0}}" class="empty-state">
+          <text class="empty-icon">🔍</text>
+          <text class="empty-title">这个单元暂时没有内容</text>
+          <text class="empty-desc">换一个关键词再试试</text>
+        </view>
+      </view>
+    </block>
+
+    <!-- 无集数：占位 pending-course -->
+    <view wx:else class="pending-course">
+      <text class="pending-icon">📖</text>
+      <text class="pending-title">这门课的手册正在整理</text>
+      <text class="pending-desc">当前样例已开放物理、世界历史和地理课程。</text>
+      <view class="pending-button" bindtap="onBack">查看其他课程</view>
+    </view>
+
+  </scroll-view>
+
+  <!-- 整理中提示 toast -->
+  <view wx:if="{{notice}}" class="toast">{{notice}}</view>
+</view>

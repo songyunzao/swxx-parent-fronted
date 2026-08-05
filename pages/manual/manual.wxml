@@ -1,0 +1,193 @@
+<!-- pages/manual/manual.wxml
+     对应 H5 的 EpisodeManual（App.jsx:417-502），包含：
+     - 加载态 manual-load-state
+     - EpisodeHero（App.jsx:238-266）
+     - manual-tabs（本集重点/思维导图/核心问题）
+     - SummaryTab（App.jsx:268-293）
+     - MindMapTab（App.jsx:295-321）
+     - QuestionTab（App.jsx:323-374）
+     - FeedbackDrawer（独立组件）
+-->
+<view class="screen screen-manual">
+
+  <!-- 状态栏占位 -->
+  <view class="status-bar-holder" style="height: {{statusBarHeight}}px;"></view>
+
+  <!-- 品牌头 compact -->
+  <view class="brand-header is-compact">
+    <view class="brand-lockup" bindtap="onHome">
+      <view class="brand-mark-crop">
+        <image src="/images/swxx-brand-mark.png" mode="heightFix" />
+      </view>
+      <view class="brand-copy">
+        <text class="brand-name">三五小星</text>
+        <text class="brand-divider"></text>
+        <text class="brand-station">知识成果检测站</text>
+      </view>
+    </view>
+    <view class="header-directory" bindtap="onHome">
+      <text class="header-directory-icon">☰</text>
+      <text>课程目录</text>
+    </view>
+  </view>
+
+  <!-- 返回栏（带 trail）-->
+  <view class="back-bar">
+    <view class="back-button" bindtap="onBack">
+      <text class="back-arrow">←</text>
+      <text>返回集数</text>
+    </view>
+    <text class="back-trail">{{course.title}} / {{episode.unit}}</text>
+  </view>
+
+  <!-- 加载态 / 错误态 -->
+  <view wx:if="{{!loadedGuide}}" class="manual-load-state">
+    <text class="manual-load-icon">{{loadError ? '⚠' : '📖'}}</text>
+    <text class="manual-load-title">{{loadError || '正在打开本集手册'}}</text>
+    <view wx:if="{{loadError}}" class="manual-load-button" bindtap="onBack">返回集数目录</view>
+  </view>
+
+  <!-- 手册内容 -->
+  <scroll-view wx:else class="manual-scroll" scroll-y scroll-top="{{scrollTop}}">
+
+    <!-- EpisodeHero -->
+    <view class="episode-hero {{guide.title.length > 8 ? 'has-long-title' : ''}}">
+      <view class="episode-hero-copy">
+        <text class="hero-series">{{guide.seriesLine}}</text>
+        <view class="hero-title-wrap">
+          <text class="hero-label">{{guide.episodeLabel}}</text>
+          <text class="hero-title">{{guide.title}}</text>
+        </view>
+        <view class="episode-tags">
+          <text wx:for="{{guide.tags}}" wx:key="*this" class="episode-tag">{{item}}</text>
+        </view>
+      </view>
+
+      <!-- 配图或学科占位符 -->
+      <view wx:if="{{guide.heroImage}}" class="hero-figure">
+        <image class="hero-image {{guide.imageMode === 'contain' ? 'is-contain' : ''}}" src="{{guide.heroImage}}" mode="{{guide.imageMode === 'contain' ? 'aspectFit' : 'aspectFill'}}" />
+        <text class="hero-caption">{{guide.heroCaption}}</text>
+      </view>
+      <view wx:else class="episode-hero-symbol tone-{{course.accent}}">
+        <text class="hero-symbol-glyph">{{subjectGlyph}}</text>
+        <text class="hero-symbol-label">{{guide.tags[0]}}</text>
+      </view>
+    </view>
+
+    <!-- manual-tabs -->
+    <view class="manual-tabs">
+      <view
+        wx:for="{{tabs}}"
+        wx:key="id"
+        class="manual-tab {{tab === item.id ? 'active' : ''}}"
+        bindtap="onTabTap"
+        data-tab="{{item.id}}"
+      >{{item.label}}</view>
+    </view>
+
+    <!-- 本集重点 SummaryTab -->
+    <view wx:if="{{tab === 'summary'}}" class="manual-panel summary-panel">
+      <view class="manual-section">
+        <view class="manual-section-title">
+          <view class="title-icon blue"><text>◎</text></view>
+          <view class="manual-section-copy">
+            <text class="manual-section-label">本集重点</text>
+            <text class="manual-section-heading">{{guide.summaryHeading}}</text>
+          </view>
+        </view>
+        <view class="key-point-list">
+          <view
+            wx:for="{{guide.keyPoints}}"
+            wx:key="*this"
+            class="key-point-item"
+          >
+            <text class="key-point-index">{{index + 1 < 10 ? '0' : ''}}{{index + 1}}</text>
+            <text class="key-point-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="manual-section misconception-section">
+        <view class="manual-section-title">
+          <view class="title-icon coral"><text>!</text></view>
+          <view class="manual-section-copy">
+            <text class="manual-section-label">容易混淆</text>
+            <text class="manual-section-heading">听回答时留意这些偏差</text>
+          </view>
+        </view>
+        <view class="misconception-list">
+          <text wx:for="{{guide.misconceptions}}" wx:key="*this" class="misconception-item">· {{item}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 思维导图 MindMapTab -->
+    <view wx:if="{{tab === 'mindmap'}}" class="manual-panel mindmap-panel">
+      <view class="manual-section-title">
+        <view class="title-icon green"><text>↗</text></view>
+        <view class="manual-section-copy">
+          <text class="manual-section-label">思维导图</text>
+          <text class="manual-section-heading">{{guide.mindMapHeading}}</text>
+        </view>
+      </view>
+
+      <view class="mindmap-flow">
+        <view
+          wx:for="{{guide.mindMapSteps}}"
+          wx:key="label"
+          class="mindmap-step-wrap"
+        >
+          <view class="mindmap-step tone-{{item.tone}}">
+            <text class="mindmap-step-label">{{item.label}}</text>
+            <text class="mindmap-step-title">{{item.title}}</text>
+            <text class="mindmap-step-detail">{{item.detail}}</text>
+          </view>
+          <text wx:if="{{index < guide.mindMapSteps.length - 1}}" class="flow-arrow">↓</text>
+        </view>
+      </view>
+
+      <view class="formula-note is-{{guide.insight.type}}">
+        <text class="formula-label">{{guide.insight.label}}</text>
+        <text class="formula-title">{{guide.insight.title}}</text>
+        <text class="formula-detail">{{guide.insight.detail}}</text>
+      </view>
+    </view>
+
+    <!-- 核心问题 QuestionTab -->
+    <view wx:if="{{tab === 'questions'}}" class="manual-panel question-panel">
+      <view class="question-topline">
+        <view class="question-label">
+          <text class="question-label-icon">💬</text>
+          <text>家长要问孩子的问题</text>
+        </view>
+        <view class="question-switcher">
+          <view class="question-switch-btn" bindtap="onPrevQuestion">‹</view>
+          <text class="question-switch-count">{{selectedQuestion + 1}} / {{guide.questions.length}}</text>
+          <view class="question-switch-btn" bindtap="onNextQuestion">›</view>
+        </view>
+      </view>
+
+      <text class="question-title">{{currentQuestion.title}}</text>
+      <text class="answer-note">听完孩子的回答，再选择最接近的一项。字母只是编号，不代表好坏。</text>
+
+      <view class="answer-list">
+        <view
+          wx:for="{{currentQuestion.answers}}"
+          wx:key="id"
+          class="answer-row {{selectedAnswer && selectedAnswer.id === item.id ? 'is-selected' : ''}}"
+          bindtap="onSelectAnswer"
+          data-answer="{{item}}"
+          data-index="{{index}}"
+        >
+          <text class="answer-letter">{{item.id}}</text>
+          <text class="answer-text">{{item.text}}</text>
+          <text wx:if="{{selectedAnswer && selectedAnswer.id === item.id}}" class="answer-check">✓</text>
+        </view>
+      </view>
+    </view>
+
+  </scroll-view>
+
+  <!-- 点评抽屉 -->
+  <feedback-drawer answer="{{selectedAnswer}}" bind:close="onCloseAnswer" />
+</view>

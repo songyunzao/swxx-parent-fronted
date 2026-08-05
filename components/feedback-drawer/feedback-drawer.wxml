@@ -1,0 +1,48 @@
+<!-- components/feedback-drawer/feedback-drawer.wxml
+     对应 H5 的 FeedbackDrawer（App.jsx:376-415）
+     接收 properties: answer（含 id/kind/verdict/evidence/followUp）
+-->
+<view wx:if="{{answer}}" class="drawer-root">
+
+  <!-- 遮罩 drawer-scrim -->
+  <view class="drawer-scrim" bindtap="onClose"></view>
+
+  <!-- 抽屉 feedback-drawer -->
+  <view class="feedback-drawer feedback-{{answer.kind}}">
+    <view class="drawer-handle"></view>
+
+    <!-- 抽屉头 drawer-heading -->
+    <view class="drawer-heading">
+      <view class="drawer-heading-copy">
+        <text class="drawer-heading-line">孩子的回答更接近 {{answer.id}}</text>
+        <text class="drawer-heading-tone">{{toneLabel}}</text>
+      </view>
+      <view class="drawer-close" bindtap="onClose">✕</view>
+    </view>
+
+    <!-- 抽屉内容 feedback-content -->
+    <view class="feedback-content">
+      <view class="feedback-item">
+        <view class="feedback-icon feedback-icon-1"><text>◎</text></view>
+        <view class="feedback-item-copy">
+          <text class="feedback-item-label">掌握判断</text>
+          <text class="feedback-item-title">{{answer.verdict}}</text>
+        </view>
+      </view>
+      <view class="feedback-item">
+        <view class="feedback-icon feedback-icon-2"><text>📖</text></view>
+        <view class="feedback-item-copy">
+          <text class="feedback-item-label">判断依据</text>
+          <text class="feedback-item-text">{{answer.evidence}}</text>
+        </view>
+      </view>
+      <view class="feedback-item">
+        <view class="feedback-icon feedback-icon-3"><text>?</text></view>
+        <view class="feedback-item-copy">
+          <text class="feedback-item-label">下一句追问</text>
+          <text class="feedback-item-text">{{answer.followUp}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,73 @@
+/* app.wxss —— 全局样式
+   1:1 对应 H5 的 src/styles.css 中的 :root 变量、reset 与基础设定。
+   小程序无 body/html，改用 page。
+*/
+
+page {
+  /* 配色系统 —— 与 H5 styles.css :root 完全一致 */
+  --ink: #131722;
+  --muted: #6d7482;
+  --line: #e2e6eb;
+  --soft: #f6f7f8;
+  --blue: #286be6;
+  --blue-soft: #edf4ff;
+  --green: #1da86b;
+  --green-soft: #eaf8f1;
+  --yellow: #f2c736;
+  --yellow-soft: #fff8d8;
+  --coral: #ed5d59;
+  --coral-soft: #fff0ee;
+
+  background: #fff;
+  color: #111827;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+view, text, button, input, scroll-view, image, navigator {
+  box-sizing: border-box;
+}
+
+/* 小程序原生 button 去除默认边框/背景，统一由各页面自定义 */
+button {
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  line-height: normal;
+  font-size: inherit;
+  color: inherit;
+}
+
+button::after {
+  border: 0;
+}
+
+/* 屏幕容器：对应 H5 的 .mobile-prototype > .screen
+   小程序每个页面整屏，position:absolute/inset 改为固定满屏 */
+.screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 状态栏占位：自定义导航栏下避免内容顶到系统状态栏。
+   高度由各页面 JS 注入 statusBarHeight（px），背景与品牌头一致。*/
+.status-bar-holder {
+  flex: 0 0 auto;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+/* 滚动区域：对应 H5 的 .screen-scroll / .manual-scroll */
+.screen-scroll,
+.manual-scroll {
+  flex: 1;
+  min-height: 0;
+}
