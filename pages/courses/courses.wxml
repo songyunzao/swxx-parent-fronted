@@ -19,19 +19,19 @@
         <text class="brand-station">知识成果检测站</text>
       </view>
     </view>
-    <view class="header-actions" style="margin-right: {{headerRightInset}}px;">
-      <view class="header-progress-btn" bindtap="onGoProgress">
-        <text class="header-progress-icon">📊</text>
-        <text>学习进度</text>
-      </view>
-    </view>
   </view>
 
   <scroll-view class="screen-scroll" scroll-y>
 
     <!-- 介绍区 directory-intro -->
     <view class="directory-intro">
-      <text class="eyebrow">家长课后手册</text>
+      <view class="intro-top-row">
+        <text class="eyebrow">家长课后手册</text>
+        <view class="header-progress-btn" bindtap="onGoProgress">
+          <text class="header-progress-icon">📊</text>
+          <text>学习进度</text>
+        </view>
+      </view>
       <text class="directory-title">选择孩子刚学完的课程</text>
       <text class="directory-desc">先找到课程，再进入对应集数查看重点与核心问题。</text>
     </view>

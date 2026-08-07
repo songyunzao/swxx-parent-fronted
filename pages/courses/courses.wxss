@@ -69,12 +69,6 @@
   font-weight: 650;
 }
 
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 16rpx;
-}
-
 .header-progress-btn {
   display: flex;
   align-items: center;
@@ -103,6 +97,19 @@
   color: var(--blue);
   font-size: 24rpx;
   font-weight: 720;
+}
+
+/* 介绍区首行：eyebrow 居左，学习进度按钮居右，同一水平线 */
+.intro-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20rpx;
+  margin: 0 0 16rpx;
+}
+
+.intro-top-row .eyebrow {
+  margin: 0;
 }
 
 .directory-title {
