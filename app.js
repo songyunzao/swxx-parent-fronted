@@ -15,10 +15,9 @@ App({
     parentPhone: '',
     // 孩子手机号（查进度用，bindChild 页填入）
     childTel: '',
-    // ★ 后端基础地址：部署 check-station-server 后填实际域名
-    //   本地开发：http://localhost:3000
-    //   线上：https://你的后端域名
-    apiBase: 'http://localhost:3000'
+    // ★ 后端基础地址：测试服务器（已上线，HTTPS）
+    //   本地开发改回：http://localhost:3000
+    apiBase: 'https://check.35xiaoxing.com'
   },
 
   onLaunch() {
