@@ -19,7 +19,7 @@
         <text class="brand-station">知识成果检测站</text>
       </view>
     </view>
-    <view class="header-actions">
+    <view class="header-actions" style="margin-right: {{headerRightInset}}px;">
       <view class="header-progress-btn" bindtap="onGoProgress">
         <text class="header-progress-icon">📊</text>
         <text>学习进度</text>

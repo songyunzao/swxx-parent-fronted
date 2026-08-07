@@ -37,7 +37,34 @@ function getStatusBarHeightRpx() {
   return Math.round(getStatusBarHeight() * ratio);
 }
 
+// —— 右上角胶囊避让 ——
+// 自定义导航栏下，微信胶囊按钮（···⊙）固定在屏幕右上角，
+// 页面自己的右上角元素（学习进度/课程目录/退出）会被胶囊盖住。
+// 通过 wx.getMenuButtonBoundingClientRect() 拿到胶囊位置，
+// 右侧元素加 margin-right = 胶囊左缘到屏幕右缘的距离 + 8px 间距即可避开。
+let cachedMenuRightInset = null;
+
+// 返回右侧应预留的空间，单位 px
+function getMenuRightInset() {
+  if (cachedMenuRightInset != null) return cachedMenuRightInset;
+  try {
+    const rect = wx.getMenuButtonBoundingClientRect();
+    const info = wx.getWindowInfo
+      ? wx.getWindowInfo()
+      : wx.getSystemInfoSync();
+    if (rect && rect.left > 0 && info.windowWidth) {
+      cachedMenuRightInset = info.windowWidth - rect.left + 8;
+    } else {
+      cachedMenuRightInset = 95; // 异常返回值时兜底
+    }
+  } catch (e) {
+    cachedMenuRightInset = 95; // 兜底：胶囊宽约 87px + 边距
+  }
+  return cachedMenuRightInset;
+}
+
 module.exports = {
   getStatusBarHeight,
-  getStatusBarHeightRpx
+  getStatusBarHeightRpx,
+  getMenuRightInset
 };

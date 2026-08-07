@@ -2,7 +2,7 @@
 // 学习进度页：登录后自动查询（登录号即查询号，无需任何输入）。
 
 const api = require('../../utils/api.js');
-const { getStatusBarHeight } = require('../../utils/system.js');
+const { getStatusBarHeight, getMenuRightInset } = require('../../utils/system.js');
 
 const COURSE_META = [
   { key: 'physics', name: '物理八分钟', tone: 'blue' },
@@ -14,6 +14,7 @@ const COURSE_META = [
 Page({
   data: {
     statusBarHeight: 20,
+    headerRightInset: 95,
     loading: false,
     errMsg: '',
     progress: null,
@@ -23,7 +24,10 @@ Page({
   },
 
   onLoad() {
-    this.setData({ statusBarHeight: getStatusBarHeight() });
+    this.setData({
+      statusBarHeight: getStatusBarHeight(),
+      headerRightInset: getMenuRightInset()
+    });
   },
 
   onShow() {

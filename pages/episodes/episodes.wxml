@@ -19,7 +19,7 @@
         <text class="brand-station">知识成果检测站</text>
       </view>
     </view>
-    <view class="header-directory" bindtap="onHome">
+    <view class="header-directory" bindtap="onHome" style="margin-right: {{headerRightInset}}px;">
       <text class="header-directory-icon">☰</text>
       <text>课程目录</text>
     </view>

@@ -12,7 +12,7 @@
       <text>课程</text>
     </view>
     <text class="topbar-title">学习进度</text>
-    <text class="topbar-logout" bindtap="onLogout">退出</text>
+    <text class="topbar-logout" bindtap="onLogout" style="margin-right: {{headerRightInset}}px;">退出</text>
   </view>
 
   <scroll-view class="bind-scroll" scroll-y>
