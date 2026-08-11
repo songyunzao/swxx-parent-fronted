@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/login/login",
     "pages/courses/courses",
+    "pages/login/login",
     "pages/bindChild/bindChild",
     "pages/episodes/episodes",
     "pages/manual/manual"

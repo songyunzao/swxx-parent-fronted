@@ -15,16 +15,26 @@ Page({
     countdownText: '',
   },
 
-  onLoad() {
+  onLoad(options) {
     this.setData({ statusBarHeight: getStatusBarHeight() });
+    // from=progress：从课程页"学习进度"弹窗跳入，登录成功后直达进度页
+    this.from = (options && options.from) || '';
+  },
+
+  // 登录后的落地页：进度入口来的直达进度页，否则进课程目录首页
+  // （不用 reLaunch 到 bindChild 以外的栈底页，避免页内"返回"变死键）
+  goNext() {
+    const url = this.from === 'progress'
+      ? '/pages/bindChild/bindChild'
+      : '/pages/courses/courses';
+    wx.reLaunch({ url });
   },
 
   onShow() {
-    // 已登录则直接跳走：与登录成功后保持一致，进课程目录首页
-    // （若跳 bindChild 进度页，reLaunch 后它是栈底，页内"返回"会变成死键）
+    // 已登录则直接跳走：与登录成功后保持一致
     const app = getApp();
     if (app.globalData.token) {
-      wx.reLaunch({ url: '/pages/courses/courses' });
+      this.goNext();
     }
   },
 
@@ -85,8 +95,8 @@ Page({
     this.setData({ loading: true, errMsg: '' });
     try {
       await api.login(phone, code);
-      // 登录成功 → 首页=课程目录（学习进度在课程页顶部按钮进入）
-      wx.reLaunch({ url: '/pages/courses/courses' });
+      // 登录成功 → 按来源跳转（进度入口来的直达进度页，否则回首页）
+      this.goNext();
     } catch (err) {
       this.setData({ errMsg: err.message });
     } finally {

@@ -86,7 +86,23 @@ Page({
 
   // 跳转学习进度页（独立入口）
   onGoProgress() {
-    wx.navigateTo({ url: '/pages/bindChild/bindChild' });
+    const app = getApp();
+    if (app.globalData.token) {
+      wx.navigateTo({ url: '/pages/bindChild/bindChild' });
+      return;
+    }
+    // 未登录：弹窗引导（微信审核要求：未登录可浏览内容，登录仅锁定进度功能）
+    wx.showModal({
+      title: '提示',
+      content: '登录后才能查看孩子的学习进度',
+      confirmText: '去登录',
+      cancelText: '再看看',
+      success: (res) => {
+        if (res.confirm) {
+          wx.navigateTo({ url: '/pages/login/login?from=progress' });
+        }
+      }
+    });
   },
 
   onHome() {

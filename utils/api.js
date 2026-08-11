@@ -116,7 +116,8 @@ module.exports = {
     app.globalData.token = '';
     app.globalData.parentPhone = '';
     wx.removeStorageSync('jwt');
-    wx.reLaunch({ url: '/pages/login/login' });
+    // 未登录也可浏览课程，退出后回首页即可（不再强制回登录页）
+    wx.reLaunch({ url: '/pages/courses/courses' });
   },
 
   // —— 学习进度（从JWT自动取号，无需传tel）——
