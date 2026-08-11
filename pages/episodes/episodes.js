@@ -2,7 +2,7 @@
 // 对应 H5 的 EpisodeDirectory（App.jsx:146-236）
 
 const api = require('../../utils/api.js');
-const { getStatusBarHeight, getMenuRightInset } = require('../../utils/system.js');
+const { getStatusBarHeight } = require('../../utils/system.js');
 
 const SUBJECT_GLYPHS = {
   physics: '⚛',
@@ -21,15 +21,11 @@ Page({
     query: '',
     filtered: [],
     notice: '',
-    statusBarHeight: 20,
-    headerRightInset: 95
+    statusBarHeight: 20
   },
 
   onLoad() {
-    this.setData({
-      statusBarHeight: getStatusBarHeight(),
-      headerRightInset: getMenuRightInset()
-    });
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     const app = getApp();
     const course = app.globalData.selectedCourse;
     if (!course || !course.id) {

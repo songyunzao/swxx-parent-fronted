@@ -2,7 +2,7 @@
 // 课程目录页。支持从 bindChild 带 focus 参数跳入（自动定位某门课）。
 
 const api = require('../../utils/api.js');
-const { getStatusBarHeight, getMenuRightInset } = require('../../utils/system.js');
+const { getStatusBarHeight } = require('../../utils/system.js');
 
 const COURSE_ICON_GLYPHS = {
   physics: '⚛',
@@ -17,16 +17,12 @@ Page({
     courses: [],
     filteredCourses: [],
     statusBarHeight: 20,
-    headerRightInset: 95,
     loading: true,
     errMsg: '',
   },
 
   onLoad(options) {
-    this.setData({
-      statusBarHeight: getStatusBarHeight(),
-      headerRightInset: getMenuRightInset()
-    });
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     this.focusKey = options && options.focus;
     this.loadCatalog();
   },

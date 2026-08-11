@@ -3,7 +3,7 @@
 // 加载流程：onLoad -> fetchEpisodeGuide -> 渲染；切换 tab/问题/回答
 
 const api = require('../../utils/api.js');
-const { getStatusBarHeight, getMenuRightInset } = require('../../utils/system.js');
+const { getStatusBarHeight } = require('../../utils/system.js');
 
 const SUBJECT_GLYPHS = {
   physics: '⚛',
@@ -30,15 +30,11 @@ Page({
     selectedAnswer: null,
     currentQuestion: null,
     scrollTop: 0,
-    statusBarHeight: 20,
-    headerRightInset: 95
+    statusBarHeight: 20
   },
 
   onLoad() {
-    this.setData({
-      statusBarHeight: getStatusBarHeight(),
-      headerRightInset: getMenuRightInset()
-    });
+    this.setData({ statusBarHeight: getStatusBarHeight() });
     const app = getApp();
     const course = app.globalData.selectedCourse;
     const episode = app.globalData.selectedEpisode;

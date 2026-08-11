@@ -19,8 +19,7 @@
   z-index: 5;
 }
 
-.brand-lockup,
-.header-directory {
+.brand-lockup {
   display: flex;
   align-items: center;
 }

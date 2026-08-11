@@ -28,8 +28,7 @@
 .brand-name { font-size: 30rpx; font-weight: 750; }
 .brand-divider { width: 2rpx; height: 32rpx; background: #b7bdc6; margin: 0 14rpx; }
 .brand-station { font-size: 26rpx; font-weight: 650; }
-.header-directory { display: flex; align-items: center; gap: 10rpx; font-size: 24rpx; color: #3f4652; white-space: nowrap; }
-.header-directory-icon { font-size: 28rpx; }
+
 
 /* —— 返回栏 back-bar（H5 48px）—— */
 .back-bar {
