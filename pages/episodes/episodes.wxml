@@ -90,9 +90,7 @@
             <text class="episode-unit-label">{{item.unit}}</text>
             <text class="episode-title-text">{{item.title}}</text>
           </view>
-          <text class="episode-status {{item.ready ? 'is-ready' : ''}}">
-            {{item.ready ? '已整理' : '整理中'}}
-          </text>
+          <text class="episode-status {{item.ready ? 'is-ready' : ''}}">{{item.ready ? '已整理' : '整理中'}}</text>
           <text class="episode-caret">›</text>
         </view>
 
