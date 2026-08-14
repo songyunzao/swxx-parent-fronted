@@ -88,10 +88,12 @@
           <view class="episode-number">{{item.number}}</view>
           <view class="episode-copy">
             <text class="episode-unit-label">{{item.unit}}</text>
-            <text class="episode-title-text">{{item.title}}</text>
+            <view class="episode-title-line">
+              <text class="episode-title-text">{{item.title}}</text>
+              <text class="episode-status {{item.ready ? 'is-ready' : ''}}">{{item.ready ? '已整理' : '整理中'}}</text>
+              <text class="episode-caret">›</text>
+            </view>
           </view>
-          <text class="episode-status {{item.ready ? 'is-ready' : ''}}">{{item.ready ? '已整理' : '整理中'}}</text>
-          <text class="episode-caret">›</text>
         </view>
 
         <view wx:if="{{filtered.length === 0}}" class="empty-state">
