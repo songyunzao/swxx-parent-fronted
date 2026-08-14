@@ -173,7 +173,11 @@
   font-weight: 650;
 }
 .episode-status {
-  padding: 6rpx 12rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 8rpx 12rpx;
   border: 1rpx solid #e1e4e8;
   border-radius: 8rpx;
   color: #9299a4;
